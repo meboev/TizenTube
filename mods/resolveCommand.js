@@ -1,5 +1,5 @@
 import { configWrite, configRead } from './config.js';
-import modernUI, { optionShow } from './modernUI.js';
+// import modernUI, { optionShow } from './modernUI.js';
 
 export default function resolveCommand(cmd, _) {
     // resolveCommand function is pretty OP, it can do from opening modals, changing client settings and way more.
@@ -64,10 +64,10 @@ export function patchResolveCommand() {
 function customAction(action, parameters) {
     switch (action) {
         case 'SETTINGS_UPDATE':
-            modernUI(true, parameters);
+            // modernUI(true, parameters);
             break;
         case 'OPTIONS_SHOW':
-            optionShow(parameters, parameters.update);
+            // optionShow(parameters, parameters.update);
             break;
         case 'SKIP':
             const kE = document.createEvent('Event');
