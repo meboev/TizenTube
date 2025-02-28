@@ -26,7 +26,7 @@ function showToast(title, subtitle) {
 }
 
 setTimeout(() => {
-  showToast('Welcome to Clean Tizen Tube', 'Made with <3');
+  showToast('Welcome to Clean Tizen Tube', 'AdBlock! Continue watching prompt auto dismiss! Made with <3');
 }, 2000);
 
 /**
@@ -65,3 +65,66 @@ JSON.parse = function () {
 
   return r;
 };
+
+/*
+<ytlr-you-there-renderer
+  idomkey="you-there"
+  tabindex="-1"
+  class="ytlr-you-there-renderer--show ytlr-you-there-renderer ytlr-you-there-renderer--focused zylon-focus ytlr-watch-default__you-there-el zylon-ve"
+  hybridnavfocusable="true"
+>
+  <yt-formatted-string
+    dir="auto"
+    idomkey="prompt"
+    tabindex="-1"
+    class="ytFormattedStringHost ytlr-you-there-renderer__prompt"
+  >
+    Video paused. Continue watching?
+  </yt-formatted-string>
+  <ytlr-button-renderer
+    hybridnavfocusable="true"
+    idomkey="ytlr-you-there-renderer__button"
+    tabindex="-1"
+    class="ytlr-button-renderer ytlr-button-renderer--focused zylon-focus ytlr-you-there-renderer__button zylon-ve"
+  >
+    <ytlr-button
+      hybridnavfocusable="true"
+      role="button"
+      aria-label=""
+      disablehybridnavinsubtree="true"
+      tabindex="-1"
+      class="ytLrButtonDefaultShape ytLrButtonFocused ytLrButtonRoundedEntity ytLrButtonEntityWarmStyle ytLrButtonHost ytLrButtonFocused zylon-focus"
+      style=""
+    >
+      <ytlr-avatar-lockup
+        tabindex="-1"
+        class="ytLrAvatarLockupReverseColor ytLrAvatarLockupHost ytLrButtonAvatarLockup"
+      >
+        <div
+          idomkey="ytLrAvatarLockupMetadata"
+          class="ytLrAvatarLockupMetadata"
+        >
+          <yt-formatted-string
+            dir="auto"
+            idomkey="ytLrAvatarLockupTitle"
+            tabindex="-1"
+            class="ytFormattedStringHost ytLrAvatarLockupTitle ytLrAvatarLockupTitleCertifiedSmallTitle"
+            style=""
+          >
+            <span style="">Yes</span>
+          </yt-formatted-string>
+        </div>
+      </ytlr-avatar-lockup>
+    </ytlr-button>
+  </ytlr-button-renderer>
+</ytlr-you-there-renderer>
+*/
+
+// Auto dismiss the Continue watching prompt
+setInterval(() => {
+  const youThereButton = document.querySelector('ytlr-you-there-renderer ytlr-button');
+  if (!youThereButton) return;
+
+  youThereButton.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+  showToast('Continue watching prompt', 'Auto dismissed <3');
+}, 500);
