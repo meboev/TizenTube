@@ -26,7 +26,7 @@ function showToast(title, subtitle) {
 }
 
 setTimeout(() => {
-  showToast('Welcome to Clean Tizen Tube', 'AdBlock! Continue watching prompt auto dismiss! Made with <3');
+  showToast('Welcome to Clean Tizen Tube', 'AdBlocker! Continue watching prompt auto dismiss! Made with <3');
 }, 2000);
 
 /**
@@ -120,11 +120,23 @@ JSON.parse = function () {
 </ytlr-you-there-renderer>
 */
 
+let alreadyDismissed = false;
+
 // Auto dismiss the Continue watching prompt
 setInterval(() => {
   const youThereButton = document.querySelector('ytlr-you-there-renderer ytlr-button');
-  if (!youThereButton) return;
+  if (!youThereButton || alreadyDismissed) return;
 
-  youThereButton.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
   showToast('Continue watching prompt', 'Auto dismissed <3');
+  alreadyDismissed = true;
+
+  // youThereButton.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+
+  // document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, which: 27, keyCode: 27, key: 'Escape', code: 'Escape' }));
+  // setTimeout(() => { document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, which: 27, keyCode: 27, key: 'Escape', code: 'Escape' })) }, 500);
+
+  document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, which: 13, keyCode: 13, charCode: 13, key: 'Enter', code: 'Enter' }));
+  setTimeout(() => { document.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, cancelable: true, which: 13, keyCode: 13, charCode: 13, key: 'Enter', code: 'Enter' })) }, 500);
+
+  setTimeout(() => { alreadyDismissed = false }, 5000);
 }, 500);
